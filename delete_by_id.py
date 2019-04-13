@@ -49,3 +49,7 @@ def main():
             print('Пользователь {id} успешно удален'.format(id=user_id))
         else:
             print('Возникла ошибка при удалении пользователя: {id}'.format(id=user_id))
+
+
+if __name__ == '__main__':
+    main()
