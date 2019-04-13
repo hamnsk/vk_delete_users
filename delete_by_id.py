@@ -44,7 +44,7 @@ def main():
     group_id = GROUP_ID
     id_to_remove = read_from_file()
     for user_id in id_to_remove:
-        response = vk_api.groups.removeUser(group_id, user_id)
+        response = vk_api.groups.removeUser(group_id=group_id, user_id=user_id)
         if response:
             print('Пользователь {id} успешно удален'.format(id=user_id))
         else:
