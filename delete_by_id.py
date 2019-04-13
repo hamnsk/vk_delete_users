@@ -27,8 +27,8 @@ def read_from_file():
     Файл с id пользователй должен лежать в папке откуда запускается скрипт, название id_list.txt
     :return: строку содержащую id пользователя
     """
-    id_file = os.path.join(os.sys.argv[0], 'id_list.txt')
-    with open(id_file, 'r'):
+    file = os.path.join(os.path.dirname(os.sys.argv[0]), 'id_list.txt')
+    with open(file, 'r') as id_file:
         for line in id_file:
             yield line
 
@@ -42,16 +42,10 @@ def main():
     """
     vk_api = get_auth_api(VK_TOKEN)
     group_id = GROUP_ID
-    while True:
-        id_to_remove = read_from_file()
-        if not id_to_remove:
-            break
-        response = vk_api.groups.removeUser(group_id, id_to_remove)
+    id_to_remove = read_from_file()
+    for user_id in id_to_remove:
+        response = vk_api.groups.removeUser(group_id, user_id)
         if response:
-            print('Пользователь {id} успешно удален'.format(id=id_to_remove))
+            print('Пользователь {id} успешно удален'.format(id=user_id))
         else:
-            print('Возникла ошибка при удалении пользователя: {id}'.format(id=id_to_remove))
-
-
-if __name__ == '__main__':
-    main()
+            print('Возникла ошибка при удалении пользователя: {id}'.format(id=user_id))
